@@ -5,7 +5,7 @@ import Input from '../Components/input/Input';
 import { Button } from '../Components/styles-button';
 import { Link } from '../Components/tabs/styles-tabs';
 import { fetchWrapper } from '../utils/api';
-import { LaunchContext } from '../utils/types';
+import { DefaultUser, IUser, LaunchContext } from '../utils/types';
 
 interface LoginProps {
   setActive: (state: number) => void;
@@ -16,20 +16,11 @@ const DefaultErrorLabel = {
   status: false
 };
 
-const DefaultUser = {
-  id: -1,
-  name: "",
-  email: "",
-  password: ""
-};
-
-type User = typeof DefaultUser;
 type IErrorLabel = typeof DefaultErrorLabel;
 
 const Login = ({ setActive }: LoginProps) => {
-  const [user, setUser] = useState<User>(DefaultUser);
   const [errorLabel, setErrorLabel] = useState<IErrorLabel>(DefaultErrorLabel);
-  const { setLoginState } = useContext(LaunchContext);
+  const { setLoginState, user, setUser } = useContext(LaunchContext);
 
   const noAccountClick = () => {
     setActive(1);
@@ -61,6 +52,7 @@ const Login = ({ setActive }: LoginProps) => {
       });
       setErrorLabel({ ...errorLabel, status: false });
       console.log("Post Success: ", data);
+      setUser(data.user);
       setLoginState(true);
     } catch (err) {
       setErrorLabel({ ...errorLabel, message: String(err), status: true });

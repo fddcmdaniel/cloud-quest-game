@@ -1,26 +1,18 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ErrorLabel } from './styles';
 import Input from '../Components/input/Input';
 import { Button } from '../Components/styles-button';
 import { Link } from '../Components/tabs/styles-tabs';
 import { fetchWrapper } from '../utils/api';
+import { DefaultUser, IUser, LaunchContext } from '../utils/types';
 
 interface SignupProps {
   setActive: (state: number) => void;
 }
 
-const DefaultUser = {
-  id: -1,
-  name: "",
-  email: "",
-  password: ""
-}
-
-type User = typeof DefaultUser;
-
 const Signup = ({ setActive }: SignupProps) => {
-  const [user, setUser] = useState<User>(DefaultUser);
+  const { user, setUser } = useContext(LaunchContext);
   const [errorLabel, setErrorLabel] = useState(false);
 
   const alreadyAccountClick = () => {
