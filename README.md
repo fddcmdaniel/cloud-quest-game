@@ -1,10 +1,9 @@
-## Download the starter kit
+## Clone Cloiud Quest Game
 
-npx degit https://github.com/gopinav/React-TypeScript-Webpack-Starter my-app
+git clone https://github.com/fddcmdaniel/cloud-quest-game.git
 
 ## Install dependencies
 
-cd my-app &&
 yarn
 
 ## Run dev server
