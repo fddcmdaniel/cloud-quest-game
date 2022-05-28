@@ -19,11 +19,15 @@ interface ILaunchContext {
   setLoginState: (state: boolean) => void;
   user: IUser;
   setUser: (user: IUser) => void;
+  displayModalClose: boolean;
+  setDisplayModalClose: (state: boolean) => void;
 }
 
 export const LaunchContext = createContext<ILaunchContext>({
   loginState: false,
   setLoginState: () => { },
   user: DefaultUser,
-  setUser: () => { }
+  setUser: () => { },
+  displayModalClose: true,
+  setDisplayModalClose: () => { }
 });

@@ -13,6 +13,34 @@ export interface ButtonProps {
   backgroundColor_active: string;
 }
 
+export interface BadgeProps {
+  marginLeft: string;
+  marginTop: string;
+}
+
+export const ButtonBadgeProps: BadgeProps[] = [
+  {
+    marginLeft: "79.09%",
+    marginTop: "35.15%"
+  },
+  {
+    marginLeft: "26.9%",
+    marginTop: "34%"
+  },
+  {
+    marginLeft: "14.25%",
+    marginTop: "4.2%"
+  },
+  {
+    marginLeft: "66.15%",
+    marginTop: "1.25%"
+  },
+  {
+    marginLeft: "49.25%",
+    marginTop: "17.8%"
+  },
+]
+
 export const ButtonLevelProps: ButtonProps[] = [
   {
     marginLeft: "80%",
@@ -104,4 +132,10 @@ export const LevelButton = styled(motion.button) <ButtonProps>`
   &:active {
     background-color: ${prop => prop.backgroundColor_active};
   }
+`;
+
+export const BadgeButton = styled.div <BadgeProps>`
+  position: absolute;
+  margin-left: ${prop => prop.marginLeft};
+  margin-top: ${prop => prop.marginTop};
 `;

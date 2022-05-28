@@ -55,6 +55,10 @@ export const Button = styled(motion.button) <ButtonProps>`
   }
     0.4s forwards;
   }
+  &:disabled {
+    pointer-events: none;
+    background-color: #8d8daa;
+  }
   @media (min-width: 500px) {
     width: ${prop => prop.size ? prop.size : "auto"};
   }

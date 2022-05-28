@@ -82,3 +82,11 @@ export const CarouselSlides = styled.div<CarouselProps>`
     `};
   transition: all 0.8s ease;
 `;
+
+export const Question = styled.p`
+  font-family: "Noto Sans", sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+`;

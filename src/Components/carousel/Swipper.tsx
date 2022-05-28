@@ -1,17 +1,44 @@
-
-import React from 'react';
-
+import { useEffect, useState } from 'react';
+import { ILevel } from '../../Pages/Levels';
+import { fetchWrapper } from '../../utils/api';
 import Carousel from './Carousel';
 import Slide from './Slide';
 
-const Swipper = () => {
+interface SwipperProps {
+  level: ILevel | undefined;
+  setIsOpen: (e: boolean) => void;
+}
+
+export interface IQuestion {
+  id: number;
+  question: string;
+}
+
+const Swipper = ({ level, setIsOpen }: SwipperProps) => {
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
+
+  const getQuestions = async () => {
+    try {
+      const data = await fetchWrapper(`/level/${level?.id}/questions`, {
+        method: "GET",
+        credentials: "include"
+      });
+      setQuestions(data);
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+  }
+
+  useEffect(() => { getQuestions() }, []);
 
   return (
     <div>
-      <Carousel>
-        <Slide />
-        <Slide />
-        <Slide />
+      <Carousel setIsOpen={setIsOpen}>
+        {questions.map((question: IQuestion, index: number) => {
+          return (
+            <Slide key={index} level={level} question={question} />
+          );
+        })}
       </Carousel>
     </div>
   );

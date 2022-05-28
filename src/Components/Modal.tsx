@@ -1,5 +1,6 @@
 
-import React, { ReactChild } from 'react';
+import { ReactChild, useContext } from 'react';
+import { LaunchContext } from '../utils/types';
 import { CloseButton, ModalContainer, Overlay } from './styles-modal';
 
 interface ModalProps {
@@ -21,6 +22,8 @@ const containerVariant = {
 };
 
 const Modal = ({ handleClose, children, isOpen }: ModalProps) => {
+  const { displayModalClose } = useContext(LaunchContext);
+
   return (
     <>
       {isOpen && (
@@ -29,7 +32,7 @@ const Modal = ({ handleClose, children, isOpen }: ModalProps) => {
           exit={"exit"}
           variants={modalVariant}>
           <ModalContainer variants={containerVariant}>
-            <CloseButton onClick={handleClose} />
+            <CloseButton onClick={handleClose} display={displayModalClose ? "inline" : "none"} />
             {children}
           </ModalContainer>
         </Overlay>

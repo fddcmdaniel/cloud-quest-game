@@ -7,12 +7,14 @@ import { DefaultUser, IUser, LaunchContext } from './utils/types';
 
 export const App = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const onModalButtonClick = () => setIsOpen(!isOpen);
+  const [displayModalClose, setDisplayModalClose] = useState(true);
   const [loginState, setLoginState] = useState(false);
   const [user, setUser] = useState<IUser>(DefaultUser);
 
+  const onModalButtonClick = () => setIsOpen(!isOpen);
+
   return (
-    <LaunchContext.Provider value={{ loginState, setLoginState, user, setUser }}>
+    <LaunchContext.Provider value={{ loginState, setLoginState, user, setUser, displayModalClose, setDisplayModalClose }}>
       <AppContainer>
         {!loginState && (
           <LoginModal isOpen={isOpen} handleClose={onModalButtonClick} children={<Container />}></LoginModal>)}

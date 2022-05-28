@@ -1,11 +1,12 @@
 
 import React, { useContext, useState } from 'react';
+
 import { ErrorLabel } from './styles';
 import Input from '../Components/input/Input';
 import { Button } from '../Components/styles-button';
 import { Link } from '../Components/tabs/styles-tabs';
 import { fetchWrapper } from '../utils/api';
-import { DefaultUser, IUser, LaunchContext } from '../utils/types';
+import { DefaultUser, LaunchContext } from '../utils/types';
 
 interface SignupProps {
   setActive: (state: number) => void;
