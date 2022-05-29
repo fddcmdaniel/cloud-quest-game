@@ -6,7 +6,6 @@ import { Button } from "../Components/styles-button";
 import { Link } from "../Components/tabs/styles-tabs";
 import { fetchWrapper } from "../utils/api";
 import { DefaultUser, LaunchContext } from "../utils/types";
-import PasswordStrength from "../Components/password-strength/PasswordStrength";
 
 interface ILoginContext {
   passwordStrength: string;
@@ -17,9 +16,9 @@ interface ILoginContext {
 
 export const LoginContext = createContext<ILoginContext>({
   passwordStrength: "Muito fraca",
-  setPasswordStrength: () => {},
+  setPasswordStrength: () => { },
   isButtonDisabled: true,
-  setIsButtonDisabled: () => {},
+  setIsButtonDisabled: () => { },
 });
 
 interface SignupProps {

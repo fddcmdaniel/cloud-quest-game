@@ -6,7 +6,7 @@ export const fetchWrapper = async (endpoint: string, options: RequestInit, custo
       'Content-Type': 'application/json'
     }
   };
-  const response = await fetch(`http://localhost:3001${endpoint}`, requestOptions);
+  const response = await fetch(`http://jduart.ddns.net:30001${endpoint}`, requestOptions);
 
   const { ok, url, statusText } = response;
   const data = await response.json();
