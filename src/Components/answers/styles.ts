@@ -11,7 +11,7 @@ const radioButtonHover = keyframes`
   100% { background-color: rgba(244, 238, 255) }
 `;
 
-export const RadioButtonTT = styled(motion.button) <RadioButtonProps>`
+export const RadioButton = styled(motion.button) <RadioButtonProps>`
   border-radius: 10px;
   border: none;
   -moz-border-radius: 10px;

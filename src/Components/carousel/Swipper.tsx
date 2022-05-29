@@ -32,15 +32,13 @@ const Swipper = ({ level, setIsOpen }: SwipperProps) => {
   useEffect(() => { getQuestions() }, []);
 
   return (
-    <div>
-      <Carousel setIsOpen={setIsOpen}>
-        {questions.map((question: IQuestion, index: number) => {
-          return (
-            <Slide key={index} level={level} question={question} />
-          );
-        })}
-      </Carousel>
-    </div>
+    <Carousel setIsOpen={setIsOpen} level={level}>
+      {questions.map((question: IQuestion, index: number) => {
+        return (
+          <Slide key={index} level={level} question={question} />
+        );
+      })}
+    </Carousel>
   );
 };
 

@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { IAnswer } from '../carousel/Slide';
 import { CarouselContext } from '../carousel/types-context';
-import { RadioButtonTT } from './styles';
+import { RadioButton } from './styles';
 
 interface AnswersProps {
   answers: IAnswer[];
@@ -48,14 +48,14 @@ const Answers = ({ answers }: AnswersProps) => {
     <>
       {Object.keys(answers).map((key: any, index: number) => {
         return (
-          <RadioButtonTT
+          <RadioButton
             key={index}
             whileHover={{ scale: 1.01 }}
             selected={radioButtonStyle[key]?.selected || false}
             backgroundColor={radioButtonStyle[key]?.color || "rgba(244, 238, 255, 0.50)"}
             onClick={() => onQuestionSelect(answers[key].id, answers[key].correct)}>
             {answers[key].answer}
-          </RadioButtonTT>
+          </RadioButton>
         );
       })}
     </>

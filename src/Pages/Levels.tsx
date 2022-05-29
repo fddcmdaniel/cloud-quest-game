@@ -1,11 +1,12 @@
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FaStar } from "@react-icons/all-files/fa/FaStar";
 
 import Swipper from '../Components/carousel/Swipper';
 import Modal from '../Components/Modal';
 import { BadgeButton, ButtonBadgeProps, ButtonLevelProps, LevelButton } from '../styles';
 import { fetchWrapper } from '../utils/api';
+import { LaunchContext } from '../utils/types';
 
 export interface ILevel {
   id: number;
@@ -61,7 +62,7 @@ const Levels = () => {
               {level.title}
             </LevelButton>
             <BadgeButton
-              key={index}
+              key={index + 99}
               marginLeft={ButtonBadgeProps[index].marginLeft}
               marginTop={ButtonBadgeProps[index].marginTop}
             >

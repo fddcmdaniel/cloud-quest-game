@@ -20,7 +20,8 @@ export const ModalContainer = styled(motion.div)`
   top: 50%;                        
   left: 50%;                       
   transform: translate(-50%,-50%); 
-  border-radius: 12px
+  border-radius: 12px;
+  overflow: hidden;
 `;
 
 export const CloseButton = styled.svg`
