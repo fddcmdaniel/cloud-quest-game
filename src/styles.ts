@@ -132,6 +132,11 @@ export const LevelButton = styled(motion.button) <ButtonProps>`
   &:active {
     background-color: ${prop => prop.backgroundColor_active};
   }
+  &:disabled {
+    pointer-events: none;
+    background-color: rgba(141, 141, 170, 0.7);
+    border-color: #8d8daa;
+  }
 `;
 
 export const BadgeButton = styled.div <BadgeProps>`

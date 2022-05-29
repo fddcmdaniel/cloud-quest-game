@@ -14,7 +14,7 @@ interface CarouselProps {
 }
 
 const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
-  const { setDisplayModalClose } = useContext(LaunchContext);
+  const { setDisplayModalClose, user, setUser } = useContext(LaunchContext);
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [currentslide, setCurrentslide] = useState(0);
   const [finalResult, setFinalResult] = useState(0);
@@ -35,6 +35,24 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
           result: finalResult
         })
       });
+      switch (level?.id) {
+        case 1:
+          setUser({ ...user, level1: data })
+          break;
+        case 2:
+          setUser({ ...user, level2: data })
+          break;
+        case 3:
+          setUser({ ...user, level3: data })
+          break;
+        case 4:
+          setUser({ ...user, level4: data })
+          break;
+        case 5:
+          setUser({ ...user, level5: data })
+          break;
+        default: null;
+      }
       console.log(data);
     } catch (err) {
       console.log("Error: ", err);

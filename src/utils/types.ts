@@ -5,13 +5,22 @@ export const DefaultUser = {
   name: "",
   email: "",
   password: "",
-  level_one: 0,
-  level_two: 0,
-  level_three: 0,
-  level_four: 0,
-  level_five: 0,
+  level1: 0,
+  level2: 0,
+  level3: 0,
+  level4: 0,
+  level5: 0,
 }
 
+export const DefaultLevelAccess = {
+  0: false,
+  1: true,
+  2: true,
+  3: true,
+  4: true
+}
+
+export type ILevelAccess = typeof DefaultLevelAccess;
 export type IUser = typeof DefaultUser;
 
 interface ILaunchContext {

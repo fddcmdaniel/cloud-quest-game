@@ -16,9 +16,8 @@ export const App = () => {
   return (
     <LaunchContext.Provider value={{ loginState, setLoginState, user, setUser, displayModalClose, setDisplayModalClose }}>
       <AppContainer>
-        {!loginState && (
-          <LoginModal isOpen={isOpen} handleClose={onModalButtonClick} children={<Container />}></LoginModal>)}
-        <Levels />
+        {loginState ? <Levels /> :
+          <LoginModal isOpen={isOpen} handleClose={onModalButtonClick} children={<Container />}></LoginModal>}
       </AppContainer>
     </LaunchContext.Provider>
   );
