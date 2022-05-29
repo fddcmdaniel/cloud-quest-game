@@ -1,16 +1,15 @@
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-
-import { ErrorLabel } from './styles';
-import Input from '../Components/input/Input';
-import { Button } from '../Components/styles-button';
-import { Link } from '../Components/tabs/styles-tabs';
-import { fetchWrapper } from '../utils/api';
-import { DefaultUser, LaunchContext } from '../utils/types';
-import PasswordStrength from '../Components/password-strength/PasswordStrength';
+import { ErrorLabel } from "./styles";
+import Input from "../Components/input/Input";
+import { Button } from "../Components/styles-button";
+import { Link } from "../Components/tabs/styles-tabs";
+import { fetchWrapper } from "../utils/api";
+import { DefaultUser, LaunchContext } from "../utils/types";
+import PasswordStrength from "../Components/password-strength/PasswordStrength";
 
 interface ILoginContext {
-  passwordStrength: string
+  passwordStrength: string;
   setPasswordStrength: (password: string) => void;
   isButtonDisabled: boolean;
   setIsButtonDisabled: (disable: boolean) => void;
@@ -18,9 +17,9 @@ interface ILoginContext {
 
 export const LoginContext = createContext<ILoginContext>({
   passwordStrength: "Muito fraca",
-  setPasswordStrength: () => { },
+  setPasswordStrength: () => {},
   isButtonDisabled: true,
-  setIsButtonDisabled: () => { }
+  setIsButtonDisabled: () => {},
 });
 
 interface SignupProps {
@@ -37,7 +36,7 @@ const Signup = ({ setActive }: SignupProps) => {
   const alreadyAccountClick = () => {
     setActive(0);
     setErrorLabel(false);
-  }
+  };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "name") {
@@ -49,7 +48,7 @@ const Signup = ({ setActive }: SignupProps) => {
     if (e.target.id === "password") {
       setUser({ ...user, password: e.target.value });
     }
-  }
+  };
 
   useEffect(() => {
     if (user.password.length <= 4) {
@@ -65,18 +64,15 @@ const Signup = ({ setActive }: SignupProps) => {
         setPasswordStrength("Pelo menos um letra maiúscula");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (smallCount < 1) {
+      } else if (smallCount < 1) {
         setPasswordStrength("Pelo menos um letra minúscula");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (numberCount < 1) {
+      } else if (numberCount < 1) {
         setPasswordStrength("Pelo menos um número");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (symbolCount < 1) {
+      } else if (symbolCount < 1) {
         setPasswordStrength("Pelo menos um caracter especial (*#.-)");
         setIsButtonDisabled(true);
         return;
@@ -95,7 +91,7 @@ const Signup = ({ setActive }: SignupProps) => {
       const data = await fetchWrapper("/user", {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify({ user })
+        body: JSON.stringify({ user }),
       });
       if (data) {
         setActive(0);
@@ -106,15 +102,52 @@ const Signup = ({ setActive }: SignupProps) => {
       console.log("Error: ", err);
     }
     setErrorLabel(false);
-  }
+  };
 
   return (
-    <LoginContext.Provider value={{ passwordStrength, setPasswordStrength, isButtonDisabled, setIsButtonDisabled }}>
-      <Input placeholder="Nome" type="text" value={user.name} label="Nome" id="name" onChange={onInputChange} />
-      <Input placeholder="E-mail" type="email" value={user.email} label="E-mail" id="email" onChange={onInputChange} />
-      <Input placeholder="Palavra-passe" type="password" value={user.password} label="Palavra-passe" id="password" onChange={onInputChange} />
-      <ErrorLabel visible={errorLabel}>{passwordStrength || "Preenchimento obrigatório!"}</ErrorLabel>
-      <div style={{ position: "relative", marginLeft: "auto", marginRight: "auto", width: "45%" }}>
+    <LoginContext.Provider
+      value={{
+        passwordStrength,
+        setPasswordStrength,
+        isButtonDisabled,
+        setIsButtonDisabled,
+      }}
+    >
+      <Input
+        placeholder="Nome"
+        type="text"
+        value={user.name}
+        label="Nome"
+        id="name"
+        onChange={onInputChange}
+      />
+      <Input
+        placeholder="E-mail"
+        type="email"
+        value={user.email}
+        label="E-mail"
+        id="email"
+        onChange={onInputChange}
+      />
+      <Input
+        placeholder="Palavra-passe"
+        type="password"
+        value={user.password}
+        label="Palavra-passe"
+        id="password"
+        onChange={onInputChange}
+      />
+      <ErrorLabel visible={errorLabel}>
+        {passwordStrength || "Preenchimento obrigatório!"}
+      </ErrorLabel>
+      <div
+        style={{
+          position: "relative",
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: "45%",
+        }}
+      >
         <Button
           variant="primary"
           size="200px"
@@ -124,7 +157,7 @@ const Signup = ({ setActive }: SignupProps) => {
         >
           Registar
         </Button>
-        <Link onClick={alreadyAccountClick} >Já tem conta?</Link>
+        <Link onClick={alreadyAccountClick}>Já tem conta?</Link>
       </div>
     </LoginContext.Provider>
   );

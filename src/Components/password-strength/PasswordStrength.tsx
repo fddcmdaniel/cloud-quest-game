@@ -1,4 +1,3 @@
-
 import { useEffect, useContext } from "react";
 import { LoginContext } from "../../Pages/Signup";
 
@@ -19,18 +18,15 @@ const PasswordStrength = (password: string) => {
         setPasswordStrength("Pelo menos um letra maiúscula");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (smallCount < 1) {
+      } else if (smallCount < 1) {
         setPasswordStrength("Pelo menos um letra minúscula");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (numberCount < 1) {
+      } else if (numberCount < 1) {
         setPasswordStrength("Pelo menos um número");
         setIsButtonDisabled(true);
         return;
-      }
-      else if (symbolCount < 1) {
+      } else if (symbolCount < 1) {
         setPasswordStrength("Pelo menos um caracter especial (*#.-)");
         setIsButtonDisabled(true);
         return;

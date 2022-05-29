@@ -13,5 +13,5 @@ export const ErrorLabel = styled.div<ErrorLabelProp>`
   padding-bottom: 10px;
   text-align: center;
   color: #ff6b6b;
-  display: ${prop => prop.visible ? null : "none"};
+  display: ${(prop) => (prop.visible ? null : "none")};
 `;

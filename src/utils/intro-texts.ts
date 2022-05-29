@@ -19,5 +19,5 @@ Parabéns, deste mais um passo para a tua segurança, não deixes de sonhar e fa
 `,
   `
 Parabéns, o futuro é incerto, navega seguro, não limites os teus desafios, desafia os teus limites!
-`
-]
+`,
+];

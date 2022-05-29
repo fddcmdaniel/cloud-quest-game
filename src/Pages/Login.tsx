@@ -1,19 +1,18 @@
-
-import React, { createContext, useContext, useState } from 'react';
-import { ErrorLabel } from './styles';
-import Input from '../Components/input/Input';
-import { Button } from '../Components/styles-button';
-import { Link } from '../Components/tabs/styles-tabs';
-import { fetchWrapper } from '../utils/api';
-import { LaunchContext } from '../utils/types';
+import React, { createContext, useContext, useState } from "react";
+import { ErrorLabel } from "./styles";
+import Input from "../Components/input/Input";
+import { Button } from "../Components/styles-button";
+import { Link } from "../Components/tabs/styles-tabs";
+import { fetchWrapper } from "../utils/api";
+import { LaunchContext } from "../utils/types";
 
 interface LoginProps {
   setActive: (state: number) => void;
-};
+}
 
 const DefaultErrorLabel = {
   message: "",
-  status: false
+  status: false,
 };
 
 type IErrorLabel = typeof DefaultErrorLabel;
@@ -25,7 +24,7 @@ const Login = ({ setActive }: LoginProps) => {
   const noAccountClick = () => {
     setActive(1);
     setErrorLabel({ ...errorLabel, status: false });
-  }
+  };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "email") {
@@ -34,11 +33,15 @@ const Login = ({ setActive }: LoginProps) => {
     if (e.target.id === "password") {
       setUser({ ...user, password: e.target.value });
     }
-  }
+  };
 
   const onLoginClick = async () => {
     if (!user.email || !user.password) {
-      return setErrorLabel({ ...errorLabel, message: "Preenchimento obrigatório!", status: true });
+      return setErrorLabel({
+        ...errorLabel,
+        message: "Preenchimento obrigatório!",
+        status: true,
+      });
     }
 
     try {
@@ -47,8 +50,8 @@ const Login = ({ setActive }: LoginProps) => {
         credentials: "include",
         body: JSON.stringify({
           email: user.email,
-          password: user.password
-        })
+          password: user.password,
+        }),
       });
       setErrorLabel({ ...errorLabel, status: false });
       console.log("Post Success: ", data);
@@ -57,14 +60,41 @@ const Login = ({ setActive }: LoginProps) => {
     } catch (err) {
       setErrorLabel({ ...errorLabel, message: String(err), status: true });
     }
-  }
+  };
 
   return (
-    <div style={{ position: "relative", marginTop: 40, marginLeft: "auto", marginRight: "auto" }}>
-      <Input placeholder="E-mail" type="email" label="E-mail" id="email" onChange={onInputChange} />
-      <Input placeholder="Palavra-passe" type="password" label="Palavra-passe" id="password" onChange={onInputChange} />
+    <div
+      style={{
+        position: "relative",
+        marginTop: 40,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
+      <Input
+        placeholder="E-mail"
+        type="email"
+        label="E-mail"
+        id="email"
+        onChange={onInputChange}
+      />
+      <Input
+        placeholder="Palavra-passe"
+        type="password"
+        label="Palavra-passe"
+        id="password"
+        onChange={onInputChange}
+      />
       <ErrorLabel visible={errorLabel.status}>{errorLabel.message}</ErrorLabel>
-      <div style={{ position: "relative", marginTop: 15, marginLeft: "auto", marginRight: "auto", width: "45%" }}>
+      <div
+        style={{
+          position: "relative",
+          marginTop: 15,
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: "45%",
+        }}
+      >
         <Button
           variant="primary"
           size="200px"
@@ -74,7 +104,7 @@ const Login = ({ setActive }: LoginProps) => {
         >
           Login
         </Button>
-        <Link onClick={noAccountClick} >Não tem conta?</Link>
+        <Link onClick={noAccountClick}>Não tem conta?</Link>
       </div>
     </div>
   );

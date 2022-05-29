@@ -1,11 +1,16 @@
-import { ReactElement, useContext, useEffect, useState } from 'react';
-import { ILevel, LevelContext } from '../../Pages/Levels';
-import { fetchWrapper } from '../../utils/api';
-import { LaunchContext } from '../../utils/types';
-import { Button } from '../styles-button';
+import { ReactElement, useContext, useEffect, useState } from "react";
+import { ILevel, LevelContext } from "../../Pages/Levels";
+import { fetchWrapper } from "../../utils/api";
+import { LaunchContext } from "../../utils/types";
+import { Button } from "../styles-button";
 
-import { CarouselSlide, CarouselSlides, CarouselWrapper, MainContainer } from './styles-swipper';
-import { CarouselContext, DefaultResult, IResult } from './types-context';
+import {
+  CarouselSlide,
+  CarouselSlides,
+  CarouselWrapper,
+  MainContainer,
+} from "./styles-swipper";
+import { CarouselContext, DefaultResult, IResult } from "./types-context";
 
 interface CarouselProps {
   children: ReactElement[];
@@ -22,7 +27,9 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
   const [result, setResult] = useState<IResult>(DefaultResult);
 
   useEffect(() => {
-    setFinalResult(Math.round(((result.right / (result.right + result.wrong)) * 100)));
+    setFinalResult(
+      Math.round((result.right / (result.right + result.wrong)) * 100)
+    );
   }, [result]);
 
   const saveResult = async () => {
@@ -32,36 +39,37 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
         credentials: "include",
         body: JSON.stringify({
           level: level?.id,
-          result: finalResult
-        })
+          result: finalResult,
+        }),
       });
       switch (level?.id) {
         case 1:
-          setUser({ ...user, level1: data })
+          setUser({ ...user, level1: data });
           setTotalStars(totalStars + data);
           break;
         case 2:
-          setUser({ ...user, level2: data })
+          setUser({ ...user, level2: data });
           setTotalStars(totalStars + data);
           break;
         case 3:
-          setUser({ ...user, level3: data })
+          setUser({ ...user, level3: data });
           setTotalStars(totalStars + data);
           break;
         case 4:
-          setUser({ ...user, level4: data })
+          setUser({ ...user, level4: data });
           setTotalStars(totalStars + data);
           break;
         case 5:
-          setUser({ ...user, level5: data })
+          setUser({ ...user, level5: data });
           setTotalStars(totalStars + data);
           break;
-        default: null;
+        default:
+          null;
       }
     } catch (err) {
       console.log("Error: ", err);
     }
-  }
+  };
 
   const onButtonSwipperClick = () => {
     if (currentslide === activeSlide.length - 1) {
@@ -70,12 +78,16 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
       setDisplayModalClose(true);
       setResult(DefaultResult);
     }
-    if (currentslide === 0) { setDisplayModalClose(false) }
+    if (currentslide === 0) {
+      setDisplayModalClose(false);
+    }
     if (currentslide % 2 !== 0 && currentslide !== 0) {
-      correctAnswer ? setResult({ ...result, right: result.right + 1 }) : setResult({ ...result, wrong: result.wrong + 1 });
+      correctAnswer
+        ? setResult({ ...result, right: result.right + 1 })
+        : setResult({ ...result, wrong: result.wrong + 1 });
     }
     setCurrentslide((currentslide + 1) % activeSlide.length);
-  }
+  };
 
   const activeSlide = children.map((slide: ReactElement, index: number) => (
     <CarouselSlide key={index} active={currentslide === index}>
@@ -84,7 +96,16 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
   ));
 
   return (
-    <CarouselContext.Provider value={{ correctAnswer, setCorrectAnswer, currentslide, result, setResult, activeSlide }}>
+    <CarouselContext.Provider
+      value={{
+        correctAnswer,
+        setCorrectAnswer,
+        currentslide,
+        result,
+        setResult,
+        activeSlide,
+      }}
+    >
       <MainContainer>
         <CarouselWrapper>
           <CarouselSlides currentSlide={currentslide}>
@@ -99,12 +120,16 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {(currentslide === 0 ? "Iniciar" : currentslide === activeSlide.length - 1 ? "Terminar" : "Seguinte")}
+            {currentslide === 0
+              ? "Iniciar"
+              : currentslide === activeSlide.length - 1
+              ? "Terminar"
+              : "Seguinte"}
           </Button>
         </div>
       </MainContainer>
     </CarouselContext.Provider>
   );
-}
+};
 
 export default Carousel;
