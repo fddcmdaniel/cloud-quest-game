@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface ErrorLabelProp {
-  visible: boolean;
+  visible?: boolean;
 }
 
 export const ErrorLabel = styled.div<ErrorLabelProp>`

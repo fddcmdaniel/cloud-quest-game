@@ -30,6 +30,7 @@ interface ILaunchContext {
   setUser: (user: IUser) => void;
   displayModalClose: boolean;
   setDisplayModalClose: (state: boolean) => void;
+
 }
 
 export const LaunchContext = createContext<ILaunchContext>({

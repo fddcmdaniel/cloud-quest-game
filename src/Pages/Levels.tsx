@@ -1,5 +1,5 @@
 
-import { useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import Swipper from '../Components/carousel/Swipper';
 import Modal from '../Components/Modal';
@@ -7,6 +7,16 @@ import { BadgeButton, ButtonBadgeProps, ButtonLevelProps, LevelButton } from '..
 import { fetchWrapper } from '../utils/api';
 import StartsCheck from '../utils/StartsCheck';
 import { DefaultLevelAccess, ILevelAccess, LaunchContext } from '../utils/types';
+
+interface ILevelContext {
+  totalStars: number;
+  setTotalStars: (stars: number) => void;
+}
+
+export const LevelContext = createContext<ILevelContext>({
+  totalStars: 0,
+  setTotalStars: () => { }
+});
 
 export interface ILevel {
   id: number;
@@ -44,24 +54,46 @@ const Levels = () => {
   useEffect(() => { getLevels() }, []);
 
   useEffect(() => {
-    if (user) {
-      setTotalStars(user.level1 + user.level2 + user.level3 + user.level4 + user.level5);
-      if (totalStars >= 1 && totalStars <= 3) {
-        setLevelAccess({ ...levelAccess, 1: false });
-      } else if (totalStars >= 3 && totalStars <= 6 && user.level2 >= 1) {
-        setLevelAccess({ ...levelAccess, 2: false });
-      } else if (totalStars >= 6 && totalStars <= 12 && user.level3 >= 1) {
-        setLevelAccess({ ...levelAccess, 3: false });
-      } else if (totalStars === 12) {
-        setLevelAccess({ ...levelAccess, 4: false });
-      }
+    // setTotalStars(user.level1 + user.level2 + user.level3 + user.level4 + user.level5);
+    if (totalStars >= 1 && totalStars <= 3) {
+      setLevelAccess({
+        0: false,
+        1: false,
+        2: true,
+        3: true,
+        4: true
+      });
+    } else if ((totalStars > 3 && totalStars <= 6) && user.level2 >= 1) {
+      setLevelAccess({
+        0: false,
+        1: false,
+        2: false,
+        3: true,
+        4: true
+      });
+    } else if (totalStars > 6 && totalStars < 12 && user.level3 >= 1) {
+      setLevelAccess({
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: true
+      });
+    } else if (totalStars === 12) {
+      setLevelAccess({
+        0: false,
+        1: false,
+        2: false,
+        3: false,
+        4: false
+      });
     }
-  }, [user])
+  }, [totalStars]);
 
   console.log(`Access ${levelAccess[0]}, ${levelAccess[1]}, ${levelAccess[2]}, ${levelAccess[3]}, ${levelAccess[4]}, total stars ${totalStars}`);
 
   return (
-    <>
+    <LevelContext.Provider value={{ totalStars, setTotalStars }}>
       {Object.keys(levels).map((key: any, index: number) => {
         return (
           <>
@@ -93,7 +125,7 @@ const Levels = () => {
         );
       })}
       <Modal isOpen={isOpen} handleClose={onModalButtonClick()} children={<Swipper level={level} setIsOpen={setIsOpen} />} ></Modal>
-    </>
+    </LevelContext.Provider>
   );
 };
 

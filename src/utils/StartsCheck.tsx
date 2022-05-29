@@ -12,11 +12,19 @@ const StartsCheck = ({ id, index }: StartsCheckProps) => {
   const { user } = useContext(LaunchContext);
 
   // level 1
-  if (id === 1 && user.level1 === 1) {
+  if (id === 1 && user.level1 === 0) {
+    return (
+      <>
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
+      </>
+    );
+  } else if (id === 1 && user.level1 === 1) {
     return (
       <>
         <FaStar color="#F7D716" size={20} />
-        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="#ccc" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
         <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
       </>
     );
@@ -37,6 +45,14 @@ const StartsCheck = ({ id, index }: StartsCheckProps) => {
       </>
     );
     // level 2
+  } else if (id === 2 && user.level2 === 0) {
+    return (
+      <>
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
+      </>
+    );
   } else if (id === 2 && user.level2 === 1) {
     return (
       <>
@@ -62,6 +78,14 @@ const StartsCheck = ({ id, index }: StartsCheckProps) => {
       </>
     );
     // level 3
+  } else if (id === 3 && user.level3 === 0) {
+    return (
+      <>
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
+      </>
+    );
   } else if (id === 3 && user.level3 === 1) {
     return (
       <>
@@ -87,6 +111,14 @@ const StartsCheck = ({ id, index }: StartsCheckProps) => {
       </>
     );
     // level 4
+  } else if (id === 4 && user.level4 === 0) {
+    return (
+      <>
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
+      </>
+    );
   } else if (id === 4 && user.level4 === 1) {
     return (
       <>
@@ -112,6 +144,14 @@ const StartsCheck = ({ id, index }: StartsCheckProps) => {
       </>
     );
     // level 5
+  } else if (id === 5 && user.level5 === 0) {
+    return (
+      <>
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 15, marginLeft: 4 } : { marginBottom: 8, marginLeft: 7 }} />
+        <FaStar color="rgba(141, 141, 170, 0.7)" size={20} style={index !== 4 ? { marginBottom: 14, marginLeft: 9 } : { marginBottom: 30, marginLeft: 0 }} />
+      </>
+    );
   } else if (id === 5 && user.level5 === 1) {
     return (
       <>

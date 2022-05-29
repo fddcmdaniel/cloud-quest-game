@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { ILevel } from '../../Pages/Levels';
 import { fetchWrapper } from '../../utils/api';
+import { IntroTexts } from '../../utils/intro-texts';
 import { LaunchContext } from '../../utils/types';
 import Answers from '../answers/Answers';
 import { Container, Description, Helper, Lose, LoseBg, Question, TextWrapper, Title, Win, WinBg } from './styles-swipper';
@@ -39,22 +40,58 @@ const Slide = ({ level, question }: SlideProps) => {
 
   useEffect(() => { getAnswers() }, []);
 
-  const introPage = (): JSX.Element => {
-    return (
-      <>
-        <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
-        <Description>
-          Eu sou o Cloud Quest, mais conhecido por CQ, e vou-te orientar neste jogo!
-          <br />
-          Este é o teu primeiro nível e terás de acertar o maior número de perguntas possível para obteres a melhor pontuação!
-          Se obteres todas as estrelas poderás desbloquear o último nível.
-          Prime em iniciar para começares o jogo!
-          <br />
-          Boa sorte!
-        </Description>
-        <Helper />
-      </>
-    );
+  const introPage = () => {
+    if (level?.id === 1) {
+      return (
+        <>
+          <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
+          <Description>
+            {IntroTexts[0]}
+          </Description>
+          <Helper />
+        </>
+      );
+    } else if (level?.id === 2) {
+      return (
+        <>
+          <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
+          <Description>
+            {IntroTexts[1]}
+          </Description>
+          <Helper />
+        </>
+      );
+    } else if (level?.id === 3) {
+      return (
+        <>
+          <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
+          <Description>
+            {IntroTexts[2]}
+          </Description>
+          <Helper />
+        </>
+      );
+    } else if (level?.id === 4) {
+      return (
+        <>
+          <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
+          <Description>
+            {IntroTexts[3]}
+          </Description>
+          <Helper />
+        </>
+      );
+    } else if (level?.id === 5) {
+      return (
+        <>
+          <Title style={{ marginBottom: 10 }}>Olá, {user.name} !</Title>
+          <Description>
+            {IntroTexts[4]}
+          </Description>
+          <Helper />
+        </>
+      );
+    }
   }
 
   const errorMessage = (): JSX.Element => {

@@ -1,5 +1,5 @@
 import { ReactElement, useContext, useEffect, useState } from 'react';
-import { ILevel } from '../../Pages/Levels';
+import { ILevel, LevelContext } from '../../Pages/Levels';
 import { fetchWrapper } from '../../utils/api';
 import { LaunchContext } from '../../utils/types';
 import { Button } from '../styles-button';
@@ -15,6 +15,7 @@ interface CarouselProps {
 
 const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
   const { setDisplayModalClose, user, setUser } = useContext(LaunchContext);
+  const { setTotalStars, totalStars } = useContext(LevelContext);
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [currentslide, setCurrentslide] = useState(0);
   const [finalResult, setFinalResult] = useState(0);
@@ -26,7 +27,6 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
 
   const saveResult = async () => {
     try {
-      console.log(level?.id, finalResult);
       const data = await fetchWrapper("/user/result", {
         method: "POST",
         credentials: "include",
@@ -38,22 +38,26 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
       switch (level?.id) {
         case 1:
           setUser({ ...user, level1: data })
+          setTotalStars(totalStars + data);
           break;
         case 2:
           setUser({ ...user, level2: data })
+          setTotalStars(totalStars + data);
           break;
         case 3:
           setUser({ ...user, level3: data })
+          setTotalStars(totalStars + data);
           break;
         case 4:
           setUser({ ...user, level4: data })
+          setTotalStars(totalStars + data);
           break;
         case 5:
           setUser({ ...user, level5: data })
+          setTotalStars(totalStars + data);
           break;
         default: null;
       }
-      console.log(data);
     } catch (err) {
       console.log("Error: ", err);
     }

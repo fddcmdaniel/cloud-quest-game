@@ -10,8 +10,9 @@ export const App = () => {
   const [displayModalClose, setDisplayModalClose] = useState(true);
   const [loginState, setLoginState] = useState(false);
   const [user, setUser] = useState<IUser>(DefaultUser);
-
   const onModalButtonClick = () => setIsOpen(!isOpen);
+
+  const loginCache = localStorage.getItem("login");
 
   return (
     <LaunchContext.Provider value={{ loginState, setLoginState, user, setUser, displayModalClose, setDisplayModalClose }}>
