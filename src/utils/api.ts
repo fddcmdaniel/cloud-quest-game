@@ -17,6 +17,6 @@ export const fetchWrapper = async (endpoint: string, options: RequestInit, custo
     console.log(errorMessage)
     throw new Error(errorMessage);
   }
-
+  //tr
   return data;
 };
