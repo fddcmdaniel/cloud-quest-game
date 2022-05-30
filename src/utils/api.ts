@@ -6,7 +6,7 @@ export const fetchWrapper = async (endpoint: string, options: RequestInit, custo
       'Content-Type': 'application/json'
     }
   };
-  const response = await fetch(` https://cors-everywhere.herokuapp.com/http://jduart.ddns.net:8080${endpoint}`, requestOptions);
+  const response = await fetch(`http://18.132.17.29:443${endpoint}`, requestOptions);
 
   const { ok, url, statusText } = response;
   const data = await response.json();
