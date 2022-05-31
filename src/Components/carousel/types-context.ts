@@ -14,6 +14,8 @@ interface ICarouselContext {
   result: IResult;
   setResult: (result: IResult) => void;
   activeSlide: JSX.Element[];
+  answerSelected: boolean;
+  setAnswerSelected: (selected: boolean) => void;
 }
 
 export const CarouselContext = createContext<ICarouselContext>({
@@ -22,5 +24,7 @@ export const CarouselContext = createContext<ICarouselContext>({
   currentslide: 0,
   result: DefaultResult,
   setResult: () => { },
-  activeSlide: []
+  activeSlide: [],
+  answerSelected: true,
+  setAnswerSelected: () => { }
 });

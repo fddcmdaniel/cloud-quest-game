@@ -24,6 +24,7 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
   const [correctAnswer, setCorrectAnswer] = useState(false);
   const [currentslide, setCurrentslide] = useState(0);
   const [finalResult, setFinalResult] = useState(0);
+  const [answerSelected, setAnswerSelected] = useState(true);
   const [result, setResult] = useState<IResult>(DefaultResult);
 
   useEffect(() => {
@@ -71,6 +72,14 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
     }
   };
 
+  useEffect(() => {
+    if (currentslide === 0 || currentslide % 2 === 0) {
+      setAnswerSelected(false);
+    } else {
+      setAnswerSelected(true);
+    }
+  }, [currentslide])
+
   const onButtonSwipperClick = () => {
     if (currentslide === activeSlide.length - 1) {
       setIsOpen(false);
@@ -104,6 +113,8 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
         result,
         setResult,
         activeSlide,
+        answerSelected,
+        setAnswerSelected
       }}
     >
       <MainContainer>
@@ -116,6 +127,7 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
           <Button
             variant="primary"
             size="200px"
+            disabled={answerSelected}
             onClick={onButtonSwipperClick}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -123,8 +135,8 @@ const Carousel = ({ children, setIsOpen, level }: CarouselProps) => {
             {currentslide === 0
               ? "Iniciar"
               : currentslide === activeSlide.length - 1
-              ? "Terminar"
-              : "Seguinte"}
+                ? "Terminar"
+                : "Seguinte"}
           </Button>
         </div>
       </MainContainer>

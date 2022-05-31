@@ -24,8 +24,6 @@ const Signup = ({ setActive }: SignupProps) => {
   const { user, setUser } = useContext(LaunchContext);
   const [errorLabel, setErrorLabel] = useState<IErrorLabel>(DefaultErrorLabel);
 
-
-
   const alreadyAccountClick = () => {
     setActive(0);
     setErrorLabel({ label: "", state: false });

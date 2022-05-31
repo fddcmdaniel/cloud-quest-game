@@ -15,7 +15,7 @@ interface RadioButtonProps {
 }
 
 const Answers = ({ answers }: AnswersProps) => {
-  const { setCorrectAnswer } = useContext(CarouselContext);
+  const { setCorrectAnswer, setAnswerSelected } = useContext(CarouselContext);
   const [radioButtonStyle, setRadioButtonStyle] = useState<RadioButtonProps[]>([]);
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const Answers = ({ answers }: AnswersProps) => {
         setRadioButtonStyle(updateRadioButtonStyle);
       }
       setCorrectAnswer(correct);
+      setAnswerSelected(false);
     });
   }
 

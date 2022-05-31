@@ -81,7 +81,8 @@ const Levels = () => {
   }, []);
 
   useEffect(() => {
-    // setTotalStars(user.level1 + user.level2 + user.level3 + user.level4 + user.level5);
+    console.log("LEVELS", user);
+    setTotalStars(user.level1 + user.level2 + user.level3 + user.level4 + user.level5);
     if (totalStars >= 1 && totalStars <= 3) {
       setLevelAccess({
         0: false,
