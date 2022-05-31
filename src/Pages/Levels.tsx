@@ -1,20 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { RiLogoutCircleRLine } from "@react-icons/all-files/ri/RiLogoutCircleRLine";
 
 import Swipper from "../Components/carousel/Swipper";
 import Modal from "../Components/Modal";
-import {
-  BadgeButton,
-  ButtonBadgeProps,
-  ButtonLevelProps,
-  LevelButton,
-} from "../styles";
+import { BadgeButton, ButtonBadgeProps, ButtonLevelProps, LevelButton, Logout } from "../styles";
 import { fetchWrapper } from "../utils/api";
 import StartsCheck from "../utils/StartsCheck";
-import {
-  DefaultLevelAccess,
-  ILevelAccess,
-  LaunchContext,
-} from "../utils/types";
+import { DefaultLevelAccess, ILevelAccess, LaunchContext } from "../utils/types";
 
 interface ILevelContext {
   totalStars: number;
@@ -23,7 +15,7 @@ interface ILevelContext {
 
 export const LevelContext = createContext<ILevelContext>({
   totalStars: 0,
-  setTotalStars: () => {},
+  setTotalStars: () => { },
 });
 
 export interface ILevel {
@@ -33,7 +25,7 @@ export interface ILevel {
 }
 
 const Levels = () => {
-  const { user } = useContext(LaunchContext);
+  const { user, setLoginState } = useContext(LaunchContext);
   const [levels, setLevels] = useState<ILevel[]>([]);
   const [level, setLevel] = useState<ILevel>();
   const [levelAccess, setLevelAccess] = useState<ILevelAccess>(
@@ -70,6 +62,19 @@ const Levels = () => {
       console.log("Error: ", err);
     }
   };
+
+  const onLogoutClick = async () => {
+    try {
+      const data = await fetchWrapper("/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      setLoginState(data);
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+
+  }
 
   useEffect(() => {
     getLevels();
@@ -118,6 +123,7 @@ const Levels = () => {
 
   return (
     <LevelContext.Provider value={{ totalStars, setTotalStars }}>
+      <Logout whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={onLogoutClick}><RiLogoutCircleRLine color="#9ba3eb" /></Logout>
       {Object.keys(levels).map((key: any, index: number) => {
         return (
           <>

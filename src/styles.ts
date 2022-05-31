@@ -144,3 +144,10 @@ export const BadgeButton = styled.div <BadgeProps>`
   margin-left: ${prop => prop.marginLeft};
   margin-top: ${prop => prop.marginTop};
 `;
+
+export const Logout = styled(motion.div)`
+  position: absolute;
+  cursor: pointer;
+  top: 20px;
+  right: 20px;
+`;

@@ -1,5 +1,5 @@
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { ErrorLabel } from './styles';
 import Input from '../Components/input/Input';
@@ -7,22 +7,28 @@ import { Button } from '../Components/styles-button';
 import { Link } from '../Components/tabs/styles-tabs';
 import { fetchWrapper } from '../utils/api';
 import { DefaultUser, LaunchContext } from '../utils/types';
-import PasswordStrength from '../Components/password-strength/PasswordStrength';
+import { capsREGEX, emailREGEX, numberREGEX, smallREGEX, symbolREGEX } from '../utils/constants';
 
 interface SignupProps {
   setActive: (state: number) => void;
 }
 
+const DefaultErrorLabel = {
+  label: "",
+  state: false
+}
+
+type IErrorLabel = typeof DefaultErrorLabel;
+
 const Signup = ({ setActive }: SignupProps) => {
   const { user, setUser } = useContext(LaunchContext);
-  const [errorLabel, setErrorLabel] = useState(false);
+  const [errorLabel, setErrorLabel] = useState<IErrorLabel>(DefaultErrorLabel);
 
-  const [passwordStrength, setPasswordStrength] = useState("");
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+
 
   const alreadyAccountClick = () => {
     setActive(0);
-    setErrorLabel(false);
+    setErrorLabel({ label: "", state: false });
   }
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,14 +39,26 @@ const Signup = ({ setActive }: SignupProps) => {
       setUser({ ...user, email: e.target.value });
     }
     if (e.target.id === "password") {
-      PasswordStrength(e.target.value);
       setUser({ ...user, password: e.target.value });
     }
+    setErrorLabel({ label: "", state: false })
   }
 
   const onSignupClick = async () => {
-    if (!user.name || !user.email || !user.password) return setErrorLabel(true);
-    console.log(user);
+    if (!user.name || !user.email || !user.password) {
+      return setErrorLabel({ label: "Preenchimento obrigatório!", state: true });
+    } else {
+      const capsCount = (user.password.match(capsREGEX) || []).length;
+      const smallCount = (user.password.match(smallREGEX) || []).length;
+      const numberCount = (user.password.match(numberREGEX) || []).length;
+      const symbolCount = (user.password.match(symbolREGEX) || []).length;
+
+      if (!user.email.match(emailREGEX)) return setErrorLabel({ label: "E-mail inválido!", state: true });
+      if (capsCount < 1) return setErrorLabel({ label: "Palavra-passe requer pelo menos uma caracter maiúsculo!", state: true });
+      if (smallCount < 1) return setErrorLabel({ label: "Palavra-passe requer pelo menos um caracter minúsculo!", state: true });
+      if (numberCount < 1) return setErrorLabel({ label: "Palavra-passe requer pelo menos um caracter numérico!", state: true });
+      if (symbolCount < 1) return setErrorLabel({ label: "Palavra-passe requer pelo menos um caracter especial!", state: true });
+    }
 
     try {
       const data = await fetchWrapper("/user", {
@@ -56,7 +74,7 @@ const Signup = ({ setActive }: SignupProps) => {
     } catch (err) {
       console.log("Error: ", err);
     }
-    setErrorLabel(false);
+    setErrorLabel({ label: "", state: false })
   }
 
   return (
@@ -64,7 +82,7 @@ const Signup = ({ setActive }: SignupProps) => {
       <Input placeholder="Nome" type="text" value={user.name} label="Nome" id="name" onChange={onInputChange} />
       <Input placeholder="E-mail" type="email" value={user.email} label="E-mail" id="email" onChange={onInputChange} />
       <Input placeholder="Palavra-passe" type="password" value={user.password} label="Palavra-passe" id="password" onChange={onInputChange} />
-      <ErrorLabel visible={errorLabel}>Preenchimento obrigatório!</ErrorLabel>
+      <ErrorLabel visible={errorLabel.state}>{errorLabel.label}</ErrorLabel>
       <div style={{ position: "relative", marginLeft: "auto", marginRight: "auto", width: "45%" }}>
         <Button
           variant="primary"
